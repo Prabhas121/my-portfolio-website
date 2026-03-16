@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
   Points,
@@ -14,7 +14,7 @@ import * as THREE from 'three';
 function FloatingParticles({ count = 2000 }) {
   const pointsRef = useRef();
 
-  const positions = useMemo(() => {
+  const [positions] = useState(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       pos[i * 3 + 0] = (Math.random() - 0.5) * 20;
@@ -22,7 +22,7 @@ function FloatingParticles({ count = 2000 }) {
       pos[i * 3 + 2] = (Math.random() - 0.5) * 20;
     }
     return pos;
-  }, [count]);
+  });
 
   useFrame((state) => {
     // Very gentle rotation
